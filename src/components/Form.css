@@ -1,0 +1,64 @@
+.FormMain {
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center;    /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 75vh;
+  }
+  
+  .Form {
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center;    /* Center horizontally */
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 538px;
+  }
+  .gendersblock {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  /* Optional styling for the form elements */
+  .Form input, .Form button {
+    margin: 5px; /* Add some spacing between elements */
+  }
+
+  .dropdown {
+    width: 100%; /* Makes the dropdown fill the available space */
+  }
+
+  select#dropdown{
+   
+    margin-left: 5px;
+  }
+
+  /* Form.css */
+/* ... your existing styles ... */
+
+.name-email-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  input#email{
+    margin-left: 43px;
+  }
+  
+/* Your existing CSS rules */
+
+/* Media query for screens with a maximum width of 768px (typical for mobile devices) */
+@media (max-width: 768px) {
+    .Form {
+      max-width: 100%; /* Make the form occupy the full width on smaller screens */
+    }
+  
+    .name-email-container {
+      flex-direction: column; /* Stack fname, lname, and email vertically on smaller screens */
+    }
+  }
+  
+  
