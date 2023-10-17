@@ -47,6 +47,12 @@
   input#email{
     margin-left: 43px;
   }
+
+  h1{
+    color: white;
+    padding-top: 100px;
+    margin-top: 20px;
+  }
   
 /* Your existing CSS rules */
 

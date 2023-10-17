@@ -1,28 +1,84 @@
 import React, { useState } from "react";
+import "../components/DisplayData.css";
 import { db } from "../Firebase";
-import { QuerySnapshot, collection, doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  deleteDoc,
+} from "firebase/firestore";
 
 function DisplayData() {
-  const [data, setData] = useState([]);
+  const [searchEmail, setSearchEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userLName, setUserLName] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [userCountry, setUserCountry] = useState("");
+  const [docID, setDocID] = useState("");
 
-  async function FetchData() {
-    const docRef = doc(db, "users", true);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+  const docreff = collection(db, "users");
+  const q = query(docreff, where("emailid", "==", searchEmail));
+
+  async function SearchUser() {
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      setUserName("No Data");
+      setUserLName("No Data");
+      setUserGender("No Data");
+      setUserCountry("No Data");
     } else {
-      console.log("No such document!");
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+        setUserName(doc.data().fname);
+        setUserLName(doc.data().lname);
+        setUserGender(doc.data().Gender);
+        setUserCountry(doc.data().countryName);
+        setDocID(doc.id);
+      });
     }
   }
 
+  async function Deleteuser() {
+    await deleteDoc(doc(db, "users", docID));
+    alert("Deleted");
+    window.location.reload()
+  }
+
   return (
-    <div className="displaydata">
-      <h2>Stored Data : </h2>
-      <ul>
-        <li>SampleData</li>
-      </ul>
-      <button onClick={FetchData}>Show Data</button>
-    </div>
+    <>
+      <div className="search_and_display">
+        <div className="searchdata">
+          <label>
+            Email ID :{" "}
+            <input
+              type="text"
+              value={searchEmail}
+              onChange={(e) => setSearchEmail(e.target.value)}
+              placeholder="Enter email ID to search"
+            />
+          </label>
+          <button className="search-btn" onClick={SearchUser}>
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="displaydata">
+        {" "}
+        <label htmlFor="">Name : {userName} </label>
+        <label htmlFor="">Last Name : {userLName} </label>
+        <label htmlFor="">Gender : {userGender} </label>
+        <label htmlFor="">Country : {userCountry} </label>
+        {userLName && (
+          <button onClick={Deleteuser} className="delete_btn">
+            {" "}
+            Delete{" "}
+          </button>
+        )}{" "}
+      </div>
+    </>
   );
 }
 

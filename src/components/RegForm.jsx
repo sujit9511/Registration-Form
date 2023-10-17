@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Form.css";
 import { db } from "../Firebase";
 import { addDoc, collection } from "firebase/firestore";
+import DisplayData from "./DisplayData";
 
 function RegForm() {
   //1
@@ -131,7 +132,7 @@ function RegForm() {
         </div>
         <button type="submit">Save</button>
       </form>
-      {/* <DisplayData /> */}
+      <DisplayData />
     </div>
   );
 }
