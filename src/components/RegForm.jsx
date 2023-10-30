@@ -12,13 +12,14 @@ function RegForm() {
   const [Email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [Country, setCountry] = useState("");
+  // const [isEditMode, setIsEditMode] = useState(false);
 
   //2
 
   async function buttonsubmit(e) {
     e.preventDefault();
 
-    alert("clicked");
+    alert("Saved");
 
     try {
       const docRef = await addDoc(collection(db, "users"), {
@@ -34,56 +35,53 @@ function RegForm() {
     }
   }
 
-  //3
+  
 
-  //   const countriesList = ["India", "US", "Pakistan", "Russia"];
-
-  //4
   return (
     <div className="FormMain">
       <h1>My Form</h1>
       <form className="Form" onSubmit={buttonsubmit}>
-      <div className="name-email-container">
-  <label htmlFor="fname">
-    First Name:
-    <input
-      type="text"
-      name="firstName"
-      id="fname"
-      placeholder="First Name"
-      value={FirstName}
-      onChange={(e) => {
-        setFirstname(e.target.value);
-      }}
-    />
-  </label>
-  <label htmlFor="lname">
-    Last Name:
-    <input
-      type="text"
-      name="lastName"
-      id="lname"
-      placeholder="Last Name"
-      value={LastName}
-      onChange={(e) => {
-        setlastName(e.target.value);
-      }}
-    />
-  </label>
-  <label htmlFor="email">
-    Email:
-    <input
-      type="email"
-      name="email"
-      id="email"
-      placeholder="Email"
-      value={Email}
-      onChange={(e) => {
-        setEmail(e.target.value);
-      }}
-    />
-  </label>
-</div>
+        <div className="name-email-container">
+          <label htmlFor="fname">
+            First Name:
+            <input
+              type="text"
+              name="firstName"
+              id="fname"
+              placeholder="First Name"
+              value={FirstName}
+              onChange={(e) => {
+                setFirstname(e.target.value);
+              }}
+            />
+          </label>
+          <label htmlFor="lname">
+            Last Name:
+            <input
+              type="text"
+              name="lastName"
+              id="lname"
+              placeholder="Last Name"
+              value={LastName}
+              onChange={(e) => {
+                setlastName(e.target.value);
+              }}
+            />
+          </label>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={Email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </label>
+        </div>
 
         <label htmlFor="">
           Gender :

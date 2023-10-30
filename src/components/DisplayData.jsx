@@ -9,6 +9,7 @@ import {
   where,
   deleteDoc,
 } from "firebase/firestore";
+import UpdateData from "./UpdateData";
 
 function DisplayData() {
   const [searchEmail, setSearchEmail] = useState("");
@@ -17,9 +18,14 @@ function DisplayData() {
   const [userGender, setUserGender] = useState("");
   const [userCountry, setUserCountry] = useState("");
   const [docID, setDocID] = useState("");
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   const docreff = collection(db, "users");
   const q = query(docreff, where("emailid", "==", searchEmail));
+
+  function handleUpdateClick() {
+    setShowUpdateForm(true);
+  }
 
   async function SearchUser() {
     const querySnapshot = await getDocs(q);
@@ -44,7 +50,7 @@ function DisplayData() {
   async function Deleteuser() {
     await deleteDoc(doc(db, "users", docID));
     alert("Deleted");
-    window.location.reload()
+    window.location.reload();
   }
 
   return (
@@ -78,6 +84,27 @@ function DisplayData() {
           </button>
         )}{" "}
       </div>
+      ... OR ...
+      {userName && (
+        <>
+          <button onClick={handleUpdateClick} className="update_btn">
+            {" "}
+            Update{" "}
+          </button>
+          {showUpdateForm && (
+            <UpdateData
+              docID={docID}
+              initialData={{
+                fname: userName,
+                lname: userLName,
+                emailid: searchEmail,
+                Gender: userGender,
+                countryName: userCountry,
+              }}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }
